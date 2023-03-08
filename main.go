@@ -19,7 +19,7 @@ func run(ctx context.Context) error {
 	s := &http.Server{
 		Addr: ":18080",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			fmt.Fprintf(w)
+			fmt.Fprintf(w, "hello")
 		}),
 	}
 
