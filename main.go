@@ -23,7 +23,7 @@ func run(ctx context.Context) error {
 		}),
 	}
 
-	eg, ctx = errgroup.WithContext(ctx)
+	eg, ctx := errgroup.WithContext(ctx)
 
 	eg.Go(func() error {
 		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
@@ -33,4 +33,10 @@ func run(ctx context.Context) error {
 		return nil
 	})
 
+	<-ctx.Done()
+	if err := s.Shutdown(context.Background()); err != nil {
+		log.Printf("miss")
+	}
+
+	return eg.Wait()
 }
